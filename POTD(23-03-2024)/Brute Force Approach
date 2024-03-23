@@ -12,3 +12,17 @@ class Solution {
         return Arrays.copyOfRange(fibonacciSeries, 0, n + 1); 
     }
 }
+
+/*
+
+Array Initialization: An integer array named fibonacciSeries is initialized with a size of n + 1. This array will hold the Fibonacci series.
+
+Modulo Value: Another integer variable named modulo is initialized with a value of 1000000007. This is likely used for calculating Fibonacci numbers modulo this value to prevent integer overflow.
+
+Fibonacci Initialization: The first two elements of the fibonacciSeries array are manually set to 0 and 1, as they are the first two Fibonacci numbers.
+
+Fibonacci Calculation: A for loop is used to calculate the remaining Fibonacci numbers. Starting from index 2 up to n, each Fibonacci number is calculated as the sum of the two preceding Fibonacci numbers (fibonacciSeries[i - 1] and fibonacciSeries[i - 2]), and then taking the modulo (%) with the modulo value.
+
+Array Copy: Finally, the method returns a copy of the fibonacciSeries array using Arrays.copyOfRange method. This ensures that only the relevant portion of the array (from index 0 to n) is returned, trimming any extra elements.
+
+*/
