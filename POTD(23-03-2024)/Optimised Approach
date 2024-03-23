@@ -17,3 +17,18 @@ class Solution {
         return Arrays.copyOfRange(fibonacciSeries, 0, n + 1); 
     }
 }
+Time complexity:O(N) Space Complexity:O(1)
+
+/*
+1. The Series method takes an integer n as input.
+2. The variable modulo is initialized with the value 1000000007, which is the modulo value given in the problem statement.
+3. An array fibonacciSeries of size n + 1 is created to store the Fibonacci series up to the nth term.
+4. The first two terms of the Fibonacci series (0 and 1) are initialized in the fibonacciSeries array at indices 0 and 1, respectively.
+5. Two integer variables a and b are initialized with the values 0 and 1, respectively. These variables will be used to keep track of the previous two terms in the series.
+6. A for loop is used to calculate the remaining terms of the Fibonacci series, starting from the third term (index 2) up to the nth term.
+7. Inside the loop, the current value of b is stored in a temporary variable temp.
+8. The next term of the Fibonacci series is calculated by adding a and b, and then taking the modulo of the sum with modulo. The result is stored in the variable b.
+9. The variable a is updated with the previous value of b, which was stored in the temp variable.
+10. The new term (stored in b) is added to the fibonacciSeries array at the current index i.
+11. After the loop finishes, the method returns a new array containing the Fibonacci series up to the nth term. 
+*/
