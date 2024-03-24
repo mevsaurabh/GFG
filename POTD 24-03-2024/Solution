@@ -1,1 +1,58 @@
 
+class Solution {
+    public Stack<Integer> insertAtBottom(Stack<Integer> st, int x) {
+        // If the stack is empty
+        if (st.isEmpty()) {
+            st.push(x);
+            return st;
+        }
+
+        // Pop the top element from the stack
+        int top = st.pop();
+
+        // Recursively insert x at the bottom of the stack
+        insertAtBottom(st, x);
+
+        // Push the original top element back onto the stack ( the element that we just popped from the stack will be inserted)
+        st.push(top);
+
+        return st;
+    }
+}
+/* 
+Visual representation of the working of the code:
+Initial Call:
+st = {4, 3, 2, 1}
+x = 7
+
+Recursive Call 1:
+st = {4, 3, 2}
+x = 7
+
+Recursive Call 2:
+st = {4, 3}
+x = 7
+
+Recursive Call 3:
+st = {4}
+x = 7
+
+Recursive Call 4 (Base Case):
+st = {}
+x = 7
+Push x onto the empty stack: st = {7}
+
+Return from Recursive Call 4: st = {7}
+Push original top (4) onto the stack: st = {7, 4}
+
+Return from Recursive Call 3: st = {7, 4}
+Push original top (3) onto the stack: st = {7, 4, 3}
+
+Return from Recursive Call 2: st = {7, 4, 3}
+Push original top (2) onto the stack: st = {7, 4, 3, 2}
+
+Return from Recursive Call 1: st = {7, 4, 3, 2}
+Push original top (1) onto the stack: st = {7, 4, 3, 2, 1}
+
+Return from Initial Call: st = {7, 4, 3, 2, 1}
+*/
