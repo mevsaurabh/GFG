@@ -27,29 +27,25 @@ class Solution {
 Time Complexity: O(2^n)
 Space Complexity: O(2^n)
 
-Visual representation of the working of the following code:
-generateBinaryStrings(3, 0, "", [])
-    generateBinaryStrings(3, 1, "1", [])
-        generateBinaryStrings(3, 2, "11", [])
-            generateBinaryStrings(3, 3, "111", [])
-                // numOnes (3) >= N - numOnes (0)
-                // Add "111" to result: ["111"]
-            generateBinaryStrings(3, 2, "110", [])
-                // numOnes (2) > current.length() - numOnes (1)
-                generateBinaryStrings(3, 2, "1100", [])
-                    // Length of "1100" is N (3)
-                    // numOnes (2) < N - numOnes (1)
-                    // Do not add "1100" to result
-        generateBinaryStrings(3, 1, "10", [])
-            // numOnes (1) <= current.length() - numOnes (1)
-            generateBinaryStrings(3, 2, "101", [])
-                // numOnes (2) > current.length() - numOnes (1)
-                generateBinaryStrings(3, 3, "1011", [])
-                    // Length of "1011" is N (3)
-                    // numOnes (3) >= N - numOnes (0)
-                    // Add "101" to result: ["111", "101"]
-    generateBinaryStrings(3, 0, "0", [])
-        // numOnes (0) < current.length() - numOnes (1)
-        // Do not generate further recursive calls
-        // Return from this branch
+visual representation of how the algorithm works for N = 3
+generateBinaryStrings(3, 0, "")
+    Append '1'
+    generateBinaryStrings(3, 1, "1")
+        Append '1'
+        generateBinaryStrings(3, 2, "11")
+            Append '1'
+            generateBinaryStrings(3, 3, "111")
+                Add "111" to result
+            numOnes (2) > current.length() - numOnes (1)
+            Append '0'
+            generateBinaryStrings(3, 2, "110")
+                Add "110" to result
+        numOnes (1) > current.length() - numOnes (1)
+        Append '0'
+        generateBinaryStrings(3, 1, "10")
+            Append '1'
+            generateBinaryStrings(3, 2, "101")
+                Add "101" to result
+    numOnes (0) < current.length() - numOnes (1)
+    Do not append '0'
 */
