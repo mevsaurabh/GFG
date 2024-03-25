@@ -1,1 +1,55 @@
+class Solution {
+    ArrayList<String> NBitBinary(int N) {
+        ArrayList<String> result = new ArrayList<>();
+        generateBinaryStrings(N, 0, "", result);
+        return result;
+    }
 
+    private void generateBinaryStrings(int N, int numOnes, String current, ArrayList<String> result) {
+        if (current.length() == N) {
+            if (numOnes >= N - numOnes) {
+                result.add(current);
+            }
+            return;
+        }
+
+        // We need to append a '1' first to ensure the prefix condition is satisfied
+        generateBinaryStrings(N, numOnes + 1, current + "1", result);
+
+        // We can append a '0' only if the number of 1's so far is greater than the number of 0's
+        if (numOnes > current.length() - numOnes) {
+            generateBinaryStrings(N, numOnes, current + "0", result);
+        }
+    }
+}
+
+/* 
+Time Complexity: O(2^n)
+Space Complexity: O(2^n)
+
+Visual representation of the working of the following code:
+generateBinaryStrings(3, 0, "", [])
+    generateBinaryStrings(3, 1, "1", [])
+        generateBinaryStrings(3, 2, "11", [])
+            generateBinaryStrings(3, 3, "111", [])
+                // numOnes (3) >= N - numOnes (0)
+                // Add "111" to result: ["111"]
+            generateBinaryStrings(3, 2, "110", [])
+                // numOnes (2) > current.length() - numOnes (1)
+                generateBinaryStrings(3, 2, "1100", [])
+                    // Length of "1100" is N (3)
+                    // numOnes (2) < N - numOnes (1)
+                    // Do not add "1100" to result
+        generateBinaryStrings(3, 1, "10", [])
+            // numOnes (1) <= current.length() - numOnes (1)
+            generateBinaryStrings(3, 2, "101", [])
+                // numOnes (2) > current.length() - numOnes (1)
+                generateBinaryStrings(3, 3, "1011", [])
+                    // Length of "1011" is N (3)
+                    // numOnes (3) >= N - numOnes (0)
+                    // Add "101" to result: ["111", "101"]
+    generateBinaryStrings(3, 0, "0", [])
+        // numOnes (0) < current.length() - numOnes (1)
+        // Do not generate further recursive calls
+        // Return from this branch
+*/
