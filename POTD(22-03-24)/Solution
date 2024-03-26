@@ -1,0 +1,41 @@
+/*Complete the function below
+Node is as follows:
+class Node{
+    int data;
+    Node left,right;
+    Node(int d){
+        data=d;
+        left=right=null;
+    }
+}
+*/
+
+
+class Tree {
+    public static ArrayList <Integer> diagonalSum(Node root) 
+    {
+        // Create a HashMap to store diagonal sum
+        Map<Integer, Integer> map = new HashMap<>();
+        
+        // Call the helper function to fill the map
+        diagonalSumHelper(root, 0, map);
+        
+        // Convert map values to ArrayList and return
+        return new ArrayList<>(map.values());
+    }
+    
+    private static void diagonalSumHelper(Node root, int d, Map<Integer, Integer> map)
+    {
+        if(root == null)
+            return;
+        
+        // Update the current diagonal sum
+        map.put(d, map.getOrDefault(d, 0) + root.data);
+        
+        // Recur for left subtree (increase the diagonal number by 1)
+        diagonalSumHelper(root.left, d + 1, map);
+        
+        // Recur for right subtree (same diagonal number)
+        diagonalSumHelper(root.right, d, map);
+    }
+}
