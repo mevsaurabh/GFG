@@ -1,0 +1,64 @@
+import java.util.*;
+
+class Solution {
+    public int findCity(int n, int m, int[][] edges, int distanceThreshold) {
+        // Create an adjacency list representation of the graph
+        List<List<int[]>> graph = new ArrayList<>(n);
+        for (int i = 0; i < n; i++) {
+            graph.add(new ArrayList<>());
+        }
+        for (int[] edge : edges) {
+            int u = edge[0], v = edge[1], w = edge[2];
+            graph.get(u).add(new int[] {v, w});
+            graph.get(v).add(new int[] {u, w});
+        }
+
+        // Find the shortest distance between each pair of cities using Dijkstra's algorithm
+        int[][] dist = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            Arrays.fill(dist[i], Integer.MAX_VALUE);
+            dijkstra(i, graph, dist);
+        }
+
+        // Count the number of reachable cities for each city within the distanceThreshold
+        int minReachable = Integer.MAX_VALUE;
+        int cityWithMinReachable = -1;
+        for (int i = 0; i < n; i++) {
+            int reachable = 0;
+            for (int j = 0; j < n; j++) {
+                if (dist[i][j] <= distanceThreshold) {
+                    reachable++;
+                }
+            }
+            if (reachable <= minReachable) {
+                minReachable = reachable;
+                cityWithMinReachable = i;
+            } else if (reachable == minReachable && i > cityWithMinReachable) {
+                cityWithMinReachable = i;
+            }
+        }
+
+        return cityWithMinReachable;
+    }
+
+    private void dijkstra(int src, List<List<int[]>> graph, int[][] dist) {
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+        dist[src][src] = 0;
+        pq.offer(new int[] {src, 0});
+
+        while (!pq.isEmpty()) {
+            int[] curr = pq.poll();
+            int u = curr[0], d = curr[1];
+            if (d > dist[src][u]) {
+                continue;
+            }
+            for (int[] neighbor : graph.get(u)) {
+                int v = neighbor[0], w = neighbor[1];
+                if (dist[src][v] > d + w) {
+                    dist[src][v] = d + w;
+                    pq.offer(new int[] {v, dist[src][v]});
+                }
+            }
+        }
+    }
+}
