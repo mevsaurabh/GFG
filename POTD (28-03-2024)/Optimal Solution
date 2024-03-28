@@ -62,3 +62,8 @@ class Solution {
         }
     }
 }
+
+/*
+Time complexity: O(n^2 + m * n * log(n))
+The space complexity: O(n^2 + m)
+*/
