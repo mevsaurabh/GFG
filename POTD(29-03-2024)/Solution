@@ -1,0 +1,21 @@
+
+class Solution {
+    public boolean isEularCircuitExist(int v, ArrayList<ArrayList<Integer>> adj) {
+        // Check if all non-zero degree vertices are connected
+        int[] degree = new int[v];
+        for (int i = 0; i < v; i++) {
+            // Store the degree of each vertex
+            degree[i] = adj.get(i).size();
+            // If degree of any vertex is odd, return false
+            if (degree[i] % 2 != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+/*
+Time complexity O(v + e) 
+Space complexity is O(v)
+
+*/
