@@ -1,0 +1,21 @@
+class Solution {
+    // Function to find the minimum element in the given BST.
+    int minValue(Node root) {
+        // If the tree is empty, return -1
+        if (root == null) {
+            return -1;
+        }
+        
+        // Traverse towards the leftmost node
+        while (root.left != null) {
+            root = root.left;
+        }
+        
+        // Return the value of the leftmost node
+        return root.data;
+    }
+}
+/*
+Time complexity: O(h)
+Space complexity: O(1)
+*/
