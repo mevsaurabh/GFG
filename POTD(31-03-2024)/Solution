@@ -1,0 +1,22 @@
+class Solution {
+    public static int findMaxForN(Node root, int n) {
+        // Initialize the maximum value found so far with a minimum value
+        int maxVal = -1; // Initialize with -1 to handle the case when n is smaller than all values in the BST
+        
+        // Traverse the BST
+        while (root != null) {
+            // If the current node's value is less than or equal to n,
+            // update the maximum value found so far
+            if (root.key <= n) {
+                maxVal = root.key;
+                root = root.right; // Move to the right subtree
+            } else {
+                root = root.left; // Move to the left subtree
+            }
+        }
+        
+        return maxVal;
+    }
+}
+
+/* Time and Space complexity: O(height of BST)
