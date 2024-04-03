@@ -1,0 +1,26 @@
+class Solution {
+    int prev = -1;
+    int min_diff = Integer.MAX_VALUE;
+
+    int absolute_diff(Node root) {
+        if (root == null) {
+            return min_diff;
+        }
+
+        absolute_diff(root.left);
+
+        if (prev != -1) {
+            min_diff = Math.min(min_diff, root.data - prev);
+        }
+
+        prev = root.data;
+
+        absolute_diff(root.right);
+
+        return min_diff;
+    }
+}
+ /*
+      space complexity is O(h)
+      Time complexity  is O(n)
+      */
