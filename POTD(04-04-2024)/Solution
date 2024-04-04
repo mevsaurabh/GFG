@@ -1,0 +1,65 @@
+//{ Driver Code Starts
+//Initial Template for Java
+
+/*package whatever //do not write package name here */
+
+import java.io.*;
+import java.util.*;
+class GFG {
+	public static void main (String[] args) {
+	    
+	    //taking input using Scanner class
+		Scanner sc=new Scanner(System.in);
+		
+		//taking total testcases
+		int t=sc.nextInt();
+		sc.nextLine();
+		while(t-->0)
+		{
+		    //taking the String
+		    String s=sc.nextLine();
+		    Solution ob = new Solution();
+		    //calling method sumSubstrings() 
+		    System.out.println(ob.sumSubstrings(s));
+		}
+	}
+}
+// } Driver Code Ends
+
+
+//User function Template for Java
+class Solution
+{
+    //Function to find sum of all possible substrings of the given string.
+    public static long sumSubstrings(String s)
+    {
+        // Modulo value
+        long mod = 1000000007;
+        
+        // Array to store the sum of substrings
+        long[] dp = new long[s.length()];
+        
+        // Convert the first character from char to int and store it in dp[0]
+        dp[0] = s.charAt(0) - '0';
+        
+        // Variable to store the final result
+        long res = dp[0];
+        
+        // Iterate over the string starting from the second character
+        for (int i = 1; i < s.length(); i++) {
+            // Calculate the sum of substrings ending at current position
+            dp[i] = ((i+1) * (s.charAt(i) - '0') + 10 * dp[i-1]) % mod;
+            
+            // Add the sum to the result
+            res = (res + dp[i]) % mod;
+        }
+        
+        // Return the final result
+        return res;
+    }
+}
+
+/*
+Time complexity : O(n)
+Space complexity : O(n)
+*/
