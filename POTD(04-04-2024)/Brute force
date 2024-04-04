@@ -1,0 +1,20 @@
+//User function Template for Java
+class Solution {
+    public static long sumSubstrings(String s) {
+        long mod = 1000000007;
+        long sum = 0;
+        int n = s.length();
+
+        for (int i = 0; i < n; i++) {
+            long temp = 0;
+            for (int j = i; j < n; j++) {
+                temp = (temp * 10 + (s.charAt(j) - '0')) % mod;
+                sum = (sum + temp) % mod;
+            }
+        }
+
+        return sum;
+    }
+}
+ /* Time xomplexity:O(n^2)
+*/
