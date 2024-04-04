@@ -1,0 +1,31 @@
+class Solution {
+    public int kthCommonAncestor(Node root, int k, int x, int y) {
+        Node lca = LCA(root, x, y);
+        List<Integer> path = new ArrayList<>();
+        f(root, lca, path);
+        int n = path.size();
+        if (n < k) return -1;
+        return path.get(n - k);
+    }
+
+    private Node LCA(Node root, int x, int y) {
+        if (root == null) return null;
+        if (root.data == x || root.data == y) return root;
+        else if (root.data < x && root.data < y) return LCA(root.right, x, y);
+        else if (root.data > x && root.data > y) return LCA(root.left, x, y);
+        else {
+            return root;
+        }
+    }
+
+    private void f(Node root, Node lca, List<Integer> path) {
+        path.add(root.data);
+        if (root.data == lca.data) return;
+        else if (root.data > lca.data) f(root.left, lca, path);
+        else f(root.right, lca, path);
+    }
+}
+
+/* Time complexity: O(n)
+   Space complexity: O(n)
+   */
