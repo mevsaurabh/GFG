@@ -1,1 +1,75 @@
+//{ Driver Code Starts
+import java.util.*;
+import java.io.*;
+import java.lang.*;
 
+class OptimalStrategy
+{
+    public static void main (String[] args) {
+        
+        //taking input using Scanner class
+        Scanner sc = new Scanner(System.in);
+        
+        //taking total number of testcases
+        int t = sc.nextInt();
+        
+        while(t-- > 0)
+        {
+            //taking number of elements
+            int n = sc.nextInt();
+            int arr[] = new int[n];
+            
+            //inserting the elements
+            for(int i = 0; i < n; i++)
+                arr[i] = sc.nextInt();
+                
+           //calling the countMaximum() method of class solve
+           System.out.println(new solve().countMaximum(n, arr)); 
+        }
+    }
+    
+    
+}
+// } Driver Code Ends
+
+
+
+class solve {
+    static long countMaximum(int n, int[] arr) {
+        // Create a 2D dp array to store the subproblem solutions
+        long[][] dp = new long[n][n];
+        
+        // Initialize the dp array with -1
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                dp[i][j] = -1;
+            }
+        }
+        
+        return solve(arr, 0, n - 1, dp);
+    }
+    
+    private static long solve(int[] arr, int left, int right, long[][] dp) {
+        if (left > right) {
+            return 0;
+        }
+        
+        if (left == right) {
+            return arr[left];
+        }
+        
+        if (dp[left][right] != -1) {
+            return dp[left][right];
+        }
+        
+        long l = arr[left] + Math.min(solve(arr, left + 2, right, dp), solve(arr, left + 1, right - 1, dp));
+        long r = arr[right] + Math.min(solve(arr, left, right - 2, dp), solve(arr, left + 1, right - 1, dp));
+        
+        dp[left][right] = Math.max(l, r);
+        
+        return dp[left][right];
+    }
+}
+
+/* Time and Space complexity : O(n^2)
+*/
