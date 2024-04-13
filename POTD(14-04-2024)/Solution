@@ -1,0 +1,22 @@
+class Solution {
+    static Long reversedBits(Long x) {
+        long reversedBits = 0;
+        int bitCount = 0;
+
+        // Traverse the bits of x from right to left
+        while (x != 0) {
+            // If the current bit is set, set the corresponding bit in reversedBits
+            if ((x & 1) == 1) {
+                reversedBits |= (1L << (31 - bitCount));
+            }
+            bitCount++;
+            x >>= 1; // Shift x one bit to the right
+        }
+
+        return reversedBits;
+    }
+}
+/*
+   Time Complexity : O(log(x))
+   Space Complexity : O(1)
+*/
