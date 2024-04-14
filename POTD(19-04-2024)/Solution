@@ -1,0 +1,27 @@
+class Solution {
+    public void printArr(int n, int arr[]) {
+        // Iterate over the array and print each element separated by a space
+        for (int i = 0; i < n; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println(); // Print a newline after printing the array
+    }
+
+    public void setToZero(int n, int arr[]) {
+        // Iterate over the array and set each element to zero
+        for (int i = 0; i < n; i++) {
+            arr[i] = 0;
+        }
+    }
+
+    public void xor1ToN(int n, int arr[]) {
+        // Step 1: Calculate the bitwise XOR of each element with its corresponding index
+        for (int i = 0; i < n; i++) {
+            arr[i] = arr[i] ^ i;
+        }
+    }
+}
+/*
+       Time Complexity: O(n)
+       Space Complexity: O(1)
+*/
