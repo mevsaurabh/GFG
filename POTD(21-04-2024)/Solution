@@ -1,0 +1,33 @@
+class Solution {
+    public void threeWayPartition(int[] array, int a, int b) {
+        int n = array.length;
+        int start = 0, end = n - 1;
+
+        // Process all elements from left to right
+        for (int i = 0; i <= end;) {
+            // If the current element is less than 'a'
+            if (array[i] < a) {
+                // Swap with the element at the 'start' index
+                swap(array, i, start);
+                start++;
+                i++;
+            }
+            // If the current element is greater than 'b'
+            else if (array[i] > b) {
+                // Swap with the element at the 'end' index
+                swap(array, i, end);
+                end--;
+            }
+            // If the current element is in the range [a, b]
+            else {
+                i++;
+            }
+        }
+    }
+
+    private void swap(int[] array, int i, int j) {
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
