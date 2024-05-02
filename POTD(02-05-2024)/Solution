@@ -1,0 +1,40 @@
+class Tree {
+    // Utility function to build the tree from the given vector
+    public Node buildTree(ArrayList<Integer> A, int[] index) {
+        if (A.get(index[0]) == -1) {
+            index[0]++;
+            return null;
+        }
+
+        Node root = new Node(A.get(index[0]));
+        index[0]++;
+        root.left = buildTree(A, index);
+        root.right = buildTree(A, index);
+        return root;
+    }
+
+    // Function to serialize a tree and return an ArrayList containing nodes of the tree
+    public ArrayList<Integer> serialize(Node root) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        preorder(root, ans);
+        return ans;
+    }
+
+    // Helper function for preorder traversal
+    private void preorder(Node root, ArrayList<Integer> ans) {
+        if (root == null) {
+            ans.add(-1);
+            return;
+        }
+
+        ans.add(root.data);
+        preorder(root.left, ans);
+        preorder(root.right, ans);
+    }
+
+    // Function to deserialize an ArrayList and construct the tree
+    public Node deSerialize(ArrayList<Integer> A) {
+        int[] index = {0};
+        return buildTree(A, index);
+    }
+}
