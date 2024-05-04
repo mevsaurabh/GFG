@@ -1,0 +1,28 @@
+class GfG {
+    // Recursive function to construct the binary tree
+    Node buildTree(int[] in, int[] post, int n) {
+        // Base case: If the tree is empty, return null
+        if (n == 0) {
+            return null;
+        }
+
+        // Create a new node with the last element of the postorder traversal
+        Node root = new Node(post[n - 1]);
+
+        // Find the index of the root node in the inorder traversal
+        int rootIndex = -1;
+        for (int i = 0; i < n; i++) {
+            if (in[i] == post[n - 1]) {
+                rootIndex = i;
+                break;
+            }
+        }
+
+        // Construct the left and right subtrees recursively
+        root.left = buildTree(in, post, rootIndex);
+        root.right = buildTree(Arrays.copyOfRange(in, rootIndex + 1, n),
+                Arrays.copyOfRange(post, rootIndex, n - 1), n - rootIndex - 1);
+
+        return root;
+    }
+}
