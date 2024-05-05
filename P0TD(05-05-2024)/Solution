@@ -1,0 +1,40 @@
+class Solution {
+    class NodeInfo {
+        Node node;
+        int verticalDistance;
+
+        NodeInfo(Node node, int verticalDistance) {
+            this.node = node;
+            this.verticalDistance = verticalDistance;
+        }
+    }
+
+    public ArrayList<Integer> verticalSum(Node root) {
+        // Map to store the vertical sums
+        Map<Integer, Integer> verticalSumMap = new TreeMap<>();
+        Queue<NodeInfo> queue = new LinkedList<>();
+
+        // Add the root node with vertical distance 0
+        queue.offer(new NodeInfo(root, 0));
+
+        while (!queue.isEmpty()) {
+            NodeInfo currentNodeInfo = queue.poll();
+            Node currentNode = currentNodeInfo.node;
+            int verticalDistance = currentNodeInfo.verticalDistance;
+
+            // Update the vertical sum for the current node's vertical distance
+            verticalSumMap.put(verticalDistance, verticalSumMap.getOrDefault(verticalDistance, 0) + currentNode.data);
+
+            // Add left and right children with updated vertical distances
+            if (currentNode.left != null) {
+                queue.offer(new NodeInfo(currentNode.left, verticalDistance - 1));
+            }
+            if (currentNode.right != null) {
+                queue.offer(new NodeInfo(currentNode.right, verticalDistance + 1));
+            }
+        }
+
+        // Convert the map values to an ArrayList
+        return new ArrayList<>(verticalSumMap.values());
+    }
+}
