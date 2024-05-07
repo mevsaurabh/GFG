@@ -1,0 +1,28 @@
+class Tree {
+    static void traversal(Node node, ArrayList<Integer> ans) {
+        if (node != null) {
+            if (node.left != null && node.right == null) {
+                ans.add(node.left.data);
+            }
+
+            if (node.left == null && node.right != null) {
+                ans.add(node.right.data);
+            }
+
+            traversal(node.left, ans);
+            traversal(node.right, ans);
+        }
+    }
+
+    static ArrayList<Integer> noSibling(Node node) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        traversal(node, ans);
+
+        if (ans.isEmpty()) {
+            ans.add(-1);
+        }
+
+        Collections.sort(ans);
+        return ans;
+    }
+}
