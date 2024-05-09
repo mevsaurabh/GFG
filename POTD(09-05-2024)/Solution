@@ -1,0 +1,18 @@
+class Solution {
+    public static boolean divisorGame(int n) {
+        // When n is even
+        if (n % 2 == 0) {
+            return true;
+        }
+
+        // If n is odd, Player needs to replace the number x with (n - x) is even
+        for (int x = 1; x < n; x++) {
+            if (n % x == 0 && divisorGame(n - x) == false) {
+                return true;
+            }
+        }
+
+        // If no such divisor x exists, Alice loses
+        return false;
+    }
+}
