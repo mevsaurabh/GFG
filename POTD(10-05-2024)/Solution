@@ -1,0 +1,29 @@
+class Solution {
+    public List<List<Integer>> CombinationSum2(int[] arr, int n, int k) {
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(arr); // Sort the array to remove duplicates easily
+        backtrackCombinations(arr, 0, n, k, new ArrayList<>(), result);
+        return result;
+    }
+
+    private void backtrackCombinations(int[] arr, int start, int n, int target, List<Integer> currentCombination, List<List<Integer>> result) {
+        if (target < 0) {
+            return; // If the remaining target is negative, no need to explore further
+        }
+
+        if (target == 0) {
+            result.add(new ArrayList<>(currentCombination)); // Found a valid combination, add it to the result
+            return;
+        }
+
+        for (int i = start; i < n; i++) {
+            if (i > start && arr[i] == arr[i - 1]) {
+                continue; // Skip duplicates to avoid redundant combinations
+            }
+
+            currentCombination.add(arr[i]);
+            backtrackCombinations(arr, i + 1, n, target - arr[i], currentCombination, result);
+            currentCombination.remove(currentCombination.size() - 1); // Backtrack by removing the last added element
+        }
+    }
+}
