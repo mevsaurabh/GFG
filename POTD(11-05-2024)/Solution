@@ -1,0 +1,23 @@
+class Solution {
+    static List<Long> jugglerSequence(long n) {
+        List<Long> sequence = new ArrayList<>();
+        
+        if (n < 1 || n > 100) {
+            System.out.println("Input out of bounds. Please provide a number between 1 and 100.");
+            return sequence;
+        }
+        
+        sequence.add(n);
+        
+        while (n != 1) {
+            if (n % 2 == 0) {
+                n = (long) Math.floor(Math.sqrt(n));
+            } else {
+                n = (long) Math.floor(Math.sqrt(n) * Math.sqrt(n) * Math.sqrt(n));
+            }
+            sequence.add(n);
+        }
+        
+        return sequence;
+    }
+}
