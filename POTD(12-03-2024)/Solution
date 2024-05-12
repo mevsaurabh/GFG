@@ -1,0 +1,13 @@
+// User function Template for Java
+class Solution {
+    static int minSteps(int d) {
+        d = Math.abs(d);
+        int step = 0;
+        int total = 0;
+        while (total < d || (total - d) % 2 != 0) {
+            step++;
+            total += step;
+        }
+        return step;
+    }
+}
