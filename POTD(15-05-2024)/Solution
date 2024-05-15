@@ -1,0 +1,43 @@
+//User function Template for Java
+class Solution {
+    static List<List<String>> accountsMerge(List<List<String>> accounts) {
+        Map<String, Set<String>> emailToEmails = new HashMap<>();
+            for (List<String> account : accounts) {
+            String name = account.get(0);
+            Set<String> emails = new HashSet<>(account);
+            emails.remove(name);
+            
+            for (String email : emails) {
+                emailToEmails.computeIfAbsent(email, k -> new HashSet<>()).addAll(emails);
+                emailToName.put(email, name);
+            }
+        }
+        
+        List<List<String>> mergedAccounts = new ArrayList<>();
+        Set<String> visited = new HashSet<>();
+        
+        
+        for (String email : emailToEmails.keySet()) {
+            if (visited.add(email)) {
+                List<String> account = new ArrayList<>();
+                account.add(emailToName.get(email));
+                dfs(email, visited, emailToEmails, account);
+                Collections.sort(account.subList(1, account.size()));
+                mergedAccounts.add(account);
+            }
+        }
+        
+        return mergedAccounts;
+    }
+    
+    private static void dfs(String email, Set<String> visited, Map<String, Set<String>> emailToEmails, List<String> account) {
+        account.add(email);
+        visited.add(email);
+        
+        for (String otherEmail : emailToEmails.get(email)) {
+            if (!visited.contains(otherEmail)) {
+                dfs(otherEmail, visited, emailToEmails, account);
+            }
+        }
+    }
+}
