@@ -1,0 +1,37 @@
+class Solution {
+    public int minimumEdgeRemove(int n, int[][] edges) {
+        // Create a graph representation using adjacency lists
+        List<List<Integer>> graph = new ArrayList<>();
+        for (int i = 0; i <= n; i++) {
+            graph.add(new ArrayList<>());
+        }
+        for (int[] edge : edges) {
+            graph.get(edge[0]).add(edge[1]);
+            graph.get(edge[1]).add(edge[0]);
+        }
+
+        // Perform a Depth First Search (DFS) to count the number of nodes in each subtree
+        int[] subtreeSizes = new int[n + 1];
+        dfs(1, -1, graph, subtreeSizes);
+
+        // Count the number of edges that need to be removed
+        int count = 0;
+        for (int i = 2; i <= n; i++) {
+            if (subtreeSizes[i] % 2 == 0) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    private void dfs(int node, int parent, List<List<Integer>> graph, int[] subtreeSizes) {
+        subtreeSizes[node] = 1;
+        for (int neighbor : graph.get(node)) {
+            if (neighbor != parent) {
+                dfs(neighbor, node, graph, subtreeSizes);
+                subtreeSizes[node] += subtreeSizes[neighbor];
+            }
+        }
+    }
+}
