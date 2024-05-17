@@ -32,3 +32,35 @@ class Solution {
 
 Time Complexity: O(n^2)
 Space complexity:O(n)
+
+
+//Optimised
+
+class Solution {
+    public int findPair(int n, int x, int[] arr) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for (int num : arr) {
+            int complement = x + num;
+
+            // Handle the case when x is 0
+            if (x == 0) {
+                if (map.getOrDefault(num, 0) > 0) {
+                    return 1;
+                }
+            } else {
+                // Handle the case when x is non-zero
+                if (map.containsKey(complement) || map.containsKey(num - x)) {
+                    return 1;
+                }
+            }
+
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+
+        return -1;
+    }
+}
+
+Time complexity: O(n)
+Space complexity: O(1)
