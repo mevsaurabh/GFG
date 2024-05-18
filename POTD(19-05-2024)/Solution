@@ -1,0 +1,43 @@
+class Solution {
+    public static int findClosest(int n, int k, int[] arr) {
+        // Edge case: If the array is empty, return -1
+        if (n == 0) {
+            return -1;
+        }
+        
+        int low = 0, high = n - 1;
+        int closestVal = arr[high]; // Initialize with the last element
+        
+        // Edge case: If k is smaller than the smallest element in the array
+        if (k < arr[0]) {
+            return arr[0];
+        }
+        
+        // Edge case: If k is greater than the largest element in the array
+        if (k > arr[n - 1]) {
+            return arr[n - 1];
+        }
+        
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            
+            if (arr[mid] <= k) {
+                // Search in the right subarray
+                low = mid + 1;
+            } else {
+                // Search in the left subarray
+                high = mid - 1;
+            }
+            
+            // Update the closest value if the current value is closer to k
+            if (Math.abs(arr[mid] - k) < Math.abs(closestVal - k)) {
+                closestVal = arr[mid];
+            } else if (Math.abs(arr[mid] - k) == Math.abs(closestVal - k)) {
+                // If the difference is the same, return the greater value
+                closestVal = Math.max(closestVal, arr[mid]);
+            }
+        }
+        
+        return closestVal;
+    }
+}
