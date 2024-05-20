@@ -1,0 +1,15 @@
+class Solution:
+    def PowMod(self, x, n, m):
+        # Base case
+        if n == 0:
+            return 1
+        
+        # Calculate (x^(n/2)) % m
+        mid = self.PowMod(x, n // 2, m)
+        mid = (mid * mid) % m
+        
+        # If n is odd, multiply half with x
+        if n % 2 == 1:
+           mid = (mid * x) % m
+        
+        return mid
