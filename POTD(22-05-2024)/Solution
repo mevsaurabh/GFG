@@ -1,0 +1,30 @@
+class Solution:
+    def findSmallestMaxDist(self, stations: List[int], k: int) -> float:
+        def check(mid, stations, k):
+            count = 0
+            n = len(stations)
+            for i in range(1, n):
+                dist = stations[i] - stations[i - 1]
+                if dist > mid:
+                    count += int(dist / mid)
+
+            return count <= k
+
+        n = len(stations)
+        lo = 0.0
+        hi = 0.0
+
+        for i in range(1, n):
+            hi = max(hi, stations[i] - stations[i - 1])
+
+        ans = hi
+
+        while hi - lo > 1e-9:
+            mid = (hi - lo) / 2.0 + lo
+            if check(mid, stations, k):
+                ans = mid
+                hi = mid
+            else:
+                lo = mid
+
+        return ans
