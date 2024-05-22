@@ -1,30 +1,40 @@
-class Solution:
-    def findSmallestMaxDist(self, stations: List[int], k: int) -> float:
-        def check(mid, stations, k):
-            count = 0
-            n = len(stations)
-            for i in range(1, n):
-                dist = stations[i] - stations[i - 1]
-                if dist > mid:
-                    count += int(dist / mid)
+class Solution {
+    public static double findSmallestMaxDist(int[] stations, int k) {
+        int n = stations.length;
+        double lo = 0.0;
+        double hi = 0.0;
 
-            return count <= k
+        // Find the maximum distance between any two adjacent stations
+        for (int i = 1; i < n; i++) {
+            hi = Math.max(hi, stations[i] - stations[i - 1]);
+        }
 
-        n = len(stations)
-        lo = 0.0
-        hi = 0.0
+        double ans = hi;
 
-        for i in range(1, n):
-            hi = max(hi, stations[i] - stations[i - 1])
+        while (hi - lo > 1e-9) {
+            double mid = (hi - lo) / 2.0 + lo;
+            if (check(mid, stations, k)) {
+                ans = mid;
+                hi = mid;
+            } else {
+                lo = mid;
+            }
+        }
 
-        ans = hi
+        return ans;
+    }
 
-        while hi - lo > 1e-9:
-            mid = (hi - lo) / 2.0 + lo
-            if check(mid, stations, k):
-                ans = mid
-                hi = mid
-            else:
-                lo = mid
+    private static boolean check(double mid, int[] stations, int k) {
+        int count = 0;
+        int n = stations.length;
 
-        return ans
+        for (int i = 1; i < n; i++) {
+            int dist = stations[i] - stations[i - 1];
+            if (dist > mid) {
+                count += Math.ceil(dist / mid) - 1;
+            }
+        }
+
+        return count <= k;
+    }
+}
