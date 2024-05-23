@@ -1,0 +1,40 @@
+class Solution {
+    public int kPalindrome(String str, int n, int k) {
+        // Reverse the input string
+        StringBuilder sb = new StringBuilder(str);
+        String rev = sb.reverse().toString();
+
+        // Initialize the dp table
+        int[][] dp = new int[n + 1][n + 1];
+        for (int i = 0; i <= n; i++) {
+            for (int j = 0; j <= n; j++) {
+                dp[i][j] = -1;
+            }
+        }
+
+        // Find the length of the longest common subsequence (LCS)
+        int lcsLength = lcs(str, rev, n - 1, n - 1, dp);
+
+        // Calculate the number of characters to be removed
+        int rem = n - lcsLength;
+
+        // Return 1 if the number of characters to be removed is less than or equal to k, else 0
+        return rem <= k ? 1 : 0;
+    }
+
+    private int lcs(String s, String r, int i, int j, int[][] dp) {
+        if (i < 0 || j < 0) {
+            return 0;
+        }
+
+        if (dp[i][j] != -1) {
+            return dp[i][j];
+        }
+
+        if (s.charAt(i) == r.charAt(j)) {
+            return dp[i][j] = 1 + lcs(s, r, i - 1, j - 1, dp);
+        }
+
+        return dp[i][j] = Math.max(lcs(s, r, i - 1, j, dp), lcs(s, r, i, j - 1, dp));
+    }
+}
