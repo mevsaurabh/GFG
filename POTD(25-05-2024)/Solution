@@ -1,0 +1,25 @@
+class Solution {
+    long max_Books(int arr[], int n, int k) {
+        long maxBooks = 0;
+        long currBooks = 0;
+        long prevSum = 0;
+
+        for (int i = 0; i < n; i++) {
+            // If the current stack height is less than or equal to k,
+            // we can include it in the current sequence
+            if (arr[i] <= k) {
+                prevSum += arr[i];
+                currBooks = Math.max(currBooks, prevSum);
+            } else {
+                // If the current stack height is greater than k,
+                // we need to start a new sequence
+                prevSum = 0;
+            }
+
+            // Update the maximum books collected so far
+            maxBooks = Math.max(maxBooks, currBooks);
+        }
+
+        return maxBooks;
+    }
+}
