@@ -1,0 +1,25 @@
+from typing import List
+
+class Solution:
+    def minimumCost(self, n : int, w : int, cost : List[int]) -> int:
+        # Edge case: when the weight w is 0
+        if w == 0:
+            return 0
+
+        # Initialize dp array
+        dp = [float('inf')] * (w + 1)
+        dp[0] = 0
+
+        # Build the dp array
+        for i in range(1, w + 1):
+            for j in range(1, n + 1):
+                # Edge case: when the cost of a packet is -1 or greater than the current minimum cost
+                if j <= i and cost[j-1] != -1 and cost[j-1] <= dp[i]:
+                    dp[i] = min(dp[i], cost[j-1] + dp[i-j])
+
+        # Edge case: when all packets are unavailable
+        if dp[w] == float('inf'):
+            return -1
+
+        # Return the minimum cost to buy w kg of oranges
+        return dp[w]
