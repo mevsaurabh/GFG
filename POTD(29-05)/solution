@@ -1,0 +1,16 @@
+class Solution:
+    def findWinner(self, n: int, x: int, y: int) -> int:
+        dp = [False] * (n + 1)  # Initialize a boolean array to store results for each n
+
+        # Base cases
+        dp[0] = False  # If n is 0, Geek can't win
+        dp[1] = True  # If n is 1, Geek can always win by taking the last coin
+
+        for i in range(2, n + 1):
+            # If Geek can win by taking x or y or 1 coin
+            if (not dp[i - 1]) or (x <= i and not dp[i - x]) or (y <= i and not dp[i - y]):
+                dp[i] = True
+            else:
+                dp[i] = False
+
+        return int(dp[n])  # Return 1 if Geek can win, 0 otherwise
