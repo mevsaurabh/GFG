@@ -1,0 +1,16 @@
+class Solution:
+    def swapNibbles(self, n):
+        # Mask to get the right nibble
+        rn = n & 0b11110000
+        
+        # Mask to get the left nibble
+        ln = n & 0b00001111
+        
+        # Shift right nibble 4 bits to the right
+        rn = rn >> 4
+        
+        # Shift left nibble 4 bits to the left
+        ln = ln << 4
+        
+        # Combine the swapped nibbles
+        return rn | ln
