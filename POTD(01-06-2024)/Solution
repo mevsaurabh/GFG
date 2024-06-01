@@ -1,0 +1,24 @@
+class Solution:
+    def evenOdd(self, s: str) -> str:
+        # Initialize x and y to 0
+        x = y = 0
+        
+        # Create a list to store the frequency of each character
+        count = [0] * 27
+        
+        # Count the frequency of each character
+        for char in s:
+            count[ord(char) - ord('a') + 1] += 1
+        
+        # Iterate over the count list
+        for i in range(1, 27):
+            if count[i] != 0 and count[i] % 2 == 0 and i % 2 == 0:
+                x += 1
+            elif count[i] % 2 == 1 and i % 2 == 1:
+                y += 1
+        
+        # Calculate the sum of x and y
+        sum = x + y
+        
+        # Return "ODD" if the sum is odd, else return "EVEN"
+        return "ODD" if sum % 2 == 1 else "EVEN"
