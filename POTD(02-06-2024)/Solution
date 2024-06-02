@@ -1,0 +1,17 @@
+from typing import List
+
+class Solution:
+    def constructList(self, q: int, queries: List[List[int]]) -> List[int]:
+        ans = []
+        x = 0
+
+        for query in queries[::-1]:  # Iterate over queries in reverse order
+            op, val = query
+            if op == 0:
+                ans.append(x ^ val)
+            else:
+                x ^= val
+
+        ans.append(x)  # Append the final XOR value
+        ans.sort()
+        return ans
