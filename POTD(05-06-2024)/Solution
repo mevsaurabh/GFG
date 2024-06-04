@@ -1,0 +1,6 @@
+class Solution:
+    def binaryNextNumber(self, s):
+        num = int(s, 2)  # Convert the input binary string to an integer
+        next_num = num + 1  # Find the next number
+        return bin(next_num)[2:]  # Convert the next number to binary and remove the '0b' prefix
+
