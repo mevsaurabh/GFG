@@ -1,0 +1,58 @@
+class Solution {
+    void matchPairs(int n, char nuts[], char bolts[]) {
+        for(int i=0; i<n; i++){
+            switch(nuts[i]){
+                case '!': nuts[i]='0'; break;
+                case '#': nuts[i]='1'; break;
+                case '$': nuts[i]='2'; break;
+                case '%': nuts[i]='3'; break;
+                case '&': nuts[i]='4'; break;
+                case '*': nuts[i]='5'; break;
+                case '?': nuts[i]='6'; break;
+                case '@': nuts[i]='7'; break;
+                case '^': nuts[i]='8'; break;
+            }
+            
+            switch(bolts[i]){
+                case '!': bolts[i]='0'; break;
+                case '#': bolts[i]='1'; break;
+                case '$': bolts[i]='2'; break;
+                case '%': bolts[i]='3'; break;
+                case '&': bolts[i]='4'; break;
+                case '*': bolts[i]='5'; break;
+                case '?': bolts[i]='6'; break;
+                case '@': bolts[i]='7'; break;
+                case '^': bolts[i]='8'; break;
+            }
+        }
+        
+        Arrays.sort(nuts);
+        Arrays.sort(bolts);
+        
+        for(int i=0; i<n; i++){
+            switch(nuts[i]){
+                case '0': nuts[i]='!'; break;
+                case '1': nuts[i]='#'; break;
+                case '2': nuts[i]='$'; break;
+                case '3': nuts[i]='%'; break;
+                case '4': nuts[i]='&'; break;
+                case '5': nuts[i]='*'; break;
+                case '6': nuts[i]='?'; break;
+                case '7': nuts[i]='@'; break;
+                case '8': nuts[i]='^'; break;
+            }
+            
+            switch(bolts[i]){
+                case '0': bolts[i]='!'; break;
+                case '1': bolts[i]='#'; break;
+                case '2': bolts[i]='$'; break;
+                case '3': bolts[i]='%'; break;
+                case '4': bolts[i]='&'; break;
+                case '5': bolts[i]='*'; break;
+                case '6': bolts[i]='?'; break;
+                case '7': bolts[i]='@'; break;
+                case '8': bolts[i]='^'; break;
+            }
+        }
+    }
+}
