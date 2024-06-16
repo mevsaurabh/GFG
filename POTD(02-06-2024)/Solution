@@ -5,7 +5,7 @@ class Solution:
         ans = []
         x = 0
 
-        for query in queries[::-1]:  # Iterate over queries in reverse order
+        for query in queries[::-1]:  
             op, val = query
             if op == 0:
                 ans.append(x ^ val)
