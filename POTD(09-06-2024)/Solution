@@ -1,32 +1,22 @@
 class Solution {
     public static void zigZag(int n, int[] arr) {
-        // Edge case: If the array has less than 2 elements, no rearrangement is needed
         if (n < 2) {
             return;
         }
-
-        // A flag to represent if we are expecting a less than (<) or greater than (>) relation
         boolean lessThanRelationExpected = true;
-
         for (int i = 0; i < n - 1; i++) {
-            // If a less than relation is expected
             if (lessThanRelationExpected) {
-                // If we have a '>' relation between arr[i] and arr[i+1], then swap them
                 if (arr[i] > arr[i + 1]) {
                     swap(arr, i, i + 1);
                 }
-            } else {  // If a greater than relation is expected
-                // If we have a '<' relation between arr[i] and arr[i+1], then swap them
+            } else { 
                 if (arr[i] < arr[i + 1]) {
                     swap(arr, i, i + 1);
                 }
             }
-            // Flip the flag for next comparison
             lessThanRelationExpected = !lessThanRelationExpected;
         }
     }
-
-    // Helper function to swap elements at index i and j in the array
     private static void swap(int[] arr, int i, int j) {
         int temp = arr[i];
         arr[i] = arr[i + 1];
