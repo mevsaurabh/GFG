@@ -5,13 +5,8 @@ class Solution:
 
         while start <= end:
             mid = start + (end - start) // 2
-
-            # If mid is within bounds of b and elements at mid index are same in both arrays, the extra element is in the right half
             if mid < n - 1 and a[mid] == b[mid]:
                 start = mid + 1
             else:
-                # If the elements at mid index are different or mid is out of bounds for b, the extra element is in the left half
                 end = mid - 1
-
-        # When start > end, start points to the index of the extra element
         return start
