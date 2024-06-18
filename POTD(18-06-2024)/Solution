@@ -1,1 +1,9 @@
+class Solution:
+    def rectanglesInCircle(self, r: int) -> int:
+        ans = 0
+        for x in range(1, 2*r + 1):
+            for y in range(1, 2*r + 1):
+                if x*x + y*y <= 4*r*r:
+                    ans += 1
+        return ans
 
