@@ -1,0 +1,28 @@
+// User function Template for Java
+class Solution {
+    public Tree convert(Node head, Tree node) {
+        if (head == null) {
+            return null;
+        }
+        
+        Queue<Tree> queue = new LinkedList<>();
+        node = new Tree(head.data);
+        queue.offer(node);
+        
+        while (head.next != null) {
+            Tree curr = queue.poll();
+            
+            head = head.next;
+            curr.left = new Tree(head.data);
+            queue.offer(curr.left);
+            
+            if (head.next != null) {
+                head = head.next;
+                curr.right = new Tree(head.data);
+                queue.offer(curr.right);
+            }
+        }
+        
+        return node;
+    }
+}
