@@ -1,0 +1,7 @@
+def compute(head):
+    current = head
+    combined_string = ""
+    while current:
+        combined_string += current.data
+        current = current.next
+    return combined_string == combined_string[::-1]
