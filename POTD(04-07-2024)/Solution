@@ -1,0 +1,24 @@
+class Solution {
+    public List<Node> printAllDups(Node root) {
+        List<Node> result = new ArrayList<>();
+        Map<String, Integer> subtreeCount = new HashMap<>();
+        dfs(root, subtreeCount, result);
+        return result;
+    }
+
+    private String dfs(Node node, Map<String, Integer> subtreeCount, List<Node> result) {
+        if (node == null) {
+            return "#";
+        }
+
+        String left = dfs(node.left, subtreeCount, result);
+        String right = dfs(node.right, subtreeCount, result);
+        String current = node.data + "," + left + "," + right;
+        subtreeCount.put(current, subtreeCount.getOrDefault(current, 0) + 1);
+        if (subtreeCount.get(current) == 2) {
+            result.add(node);
+        }
+
+        return current;
+    }
+}
