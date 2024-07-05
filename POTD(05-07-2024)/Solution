@@ -1,0 +1,27 @@
+
+class Solution {
+    public int verticalWidth(Node root) {
+        if (root == null) {
+            return 0;
+        }
+        int minHD = 0, maxHD = 0;
+        Map<Integer, int[]> hdMap = new HashMap<>();
+        dfs(root, 0, hdMap);
+        for (int[] hd : hdMap.values()) {
+            minHD = Math.min(minHD, hd[0]);
+            maxHD = Math.max(maxHD, hd[1]);
+        }
+        return maxHD - minHD + 1;
+    }
+
+    private void dfs(Node node, int currentHD, Map<Integer, int[]> hdMap) {
+        if (node == null) {
+            return;
+        }
+        hdMap.putIfAbsent(currentHD, new int[]{currentHD, currentHD});
+        hdMap.get(currentHD)[0] = Math.min(hdMap.get(currentHD)[0], currentHD);
+        hdMap.get(currentHD)[1] = Math.max(hdMap.get(currentHD)[1], currentHD);
+        dfs(node.left, currentHD - 1, hdMap);
+        dfs(node.right, currentHD + 1, hdMap);
+    }
+}
