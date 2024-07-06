@@ -1,0 +1,27 @@
+class Node:
+    def __init__(self, val):
+        self.right = None
+        self.data = val
+        self.left = None
+        self.next = None
+
+class Solution:
+    def populateNext(self, root):
+        self.prev = None
+        
+        def inorder_traversal(node):
+            if not node:
+                return
+            
+            inorder_traversal(node.left)
+            
+            if self.prev:
+                self.prev.next = node
+            self.prev = node
+            
+            inorder_traversal(node.right)
+        
+        inorder_traversal(root)
+        
+        if self.prev:
+            self.prev.next = None
