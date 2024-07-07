@@ -1,0 +1,15 @@
+class Solution:
+    def Ancestors(self, root, target):
+        ancestors = []
+        def dfs(node):
+            if not node:
+                return False
+            if node.data == target:
+                return True
+            if dfs(node.left) or dfs(node.right):
+                ancestors.append(node.data)
+                return True
+            return False
+        
+        dfs(root)
+        return ancestors
