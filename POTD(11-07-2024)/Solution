@@ -1,0 +1,72 @@
+
+class Solution {
+private:
+    vector<int> parent, size;
+    int maxSize = 1;
+    vector<pair<int, int>> dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+    
+    int find(int x) {
+        if (parent[x] != x) {
+            parent[x] = find(parent[x]);
+        }
+        return parent[x];
+    }
+    
+    void unite(int x, int y) {
+        int px = find(x), py = find(y);
+        if (px != py) {
+            if (size[px] < size[py]) {
+                swap(px, py);
+            }
+            parent[py] = px;
+            size[px] += size[py];
+            maxSize = max(maxSize, size[px]);
+        }
+    }
+    
+public:
+    int MaxConnection(vector<vector<int>>& grid) {
+        int n = grid.size();
+        parent.resize(n * n);
+        size.resize(n * n, 1);
+        for (int i = 0; i < n * n; i++) {
+            parent[i] = i;
+        }
+        
+        auto index = [n](int i, int j) { return i * n + j; };
+        
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == 1) {
+                    for (const auto& dir : dirs) {
+                        int ni = i + dir.first, nj = j + dir.second;
+                        if (ni >= 0 && ni < n && nj >= 0 && nj < n && grid[ni][nj] == 1) {
+                            unite(index(i, j), index(ni, nj));
+                        }
+                    }
+                }
+            }
+        }
+        
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == 0) {
+                    unordered_set<int> neighbors;
+                    int potentialSize = 1;
+                    for (const auto& dir : dirs) {
+                        int ni = i + dir.first, nj = j + dir.second;
+                        if (ni >= 0 && ni < n && nj >= 0 && nj < n && grid[ni][nj] == 1) {
+                            int root = find(index(ni, nj));
+                            if (neighbors.insert(root).second) {
+                                potentialSize += size[root];
+                            }
+                        }
+                    }
+                    maxSize = max(maxSize, potentialSize);
+                }
+            }
+        }
+        
+        return maxSize;
+    }
+};
