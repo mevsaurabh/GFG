@@ -1,0 +1,17 @@
+
+class Solution:
+
+    def hasPathSum(self, root, target):
+        '''
+        :param root: root of given tree.
+        :param sm: root to leaf sum
+        :return: true or false 
+        
+        '''
+        if not root:
+            return False
+        
+        if not root.left and not root.right and root.data == target:
+            return True
+        
+        return self.hasPathSum(root.left, target - root.data) or self.hasPathSum(root.right, target - root.data)
