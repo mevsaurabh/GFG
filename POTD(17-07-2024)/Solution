@@ -1,0 +1,17 @@
+class Solution:
+    def createTree(self, parent):
+        n = len(parent)
+        nodes = [Node(i) for i in range(n)]
+        root = None
+
+        for i in range(n):
+            if parent[i] == -1:
+                root = nodes[i]
+            else:
+                p = nodes[parent[i]]
+                if p.left is None:
+                    p.left = nodes[i]
+                else:
+                    p.right = nodes[i]
+
+        return root
