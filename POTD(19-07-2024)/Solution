@@ -1,0 +1,14 @@
+from bisect import bisect_left, insort
+
+class Solution:
+    def constructLowerArray(self, arr):
+        n = len(arr)
+        lower_array = [0] * n
+        sorted_list = []
+
+        for i in range(n - 1, -1, -1):
+            pos = bisect_left(sorted_list, arr[i])
+            lower_array[i] = pos
+            insort(sorted_list, arr[i])
+
+        return lower_array
