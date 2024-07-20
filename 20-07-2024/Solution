@@ -1,0 +1,14 @@
+class Solution:
+    def RemoveHalfNodes(self, root):
+        if root is None:
+            return None
+        
+        root.left = self.RemoveHalfNodes(root.left)
+        root.right = self.RemoveHalfNodes(root.right)
+
+        if root.left is None and root.right is not None:
+            return root.right
+        if root.right is None and root.left is not None:
+            return root.left
+   
+        return root
