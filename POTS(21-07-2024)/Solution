@@ -3,24 +3,17 @@ class Solution:
         MOD = 10**9 + 7
         
         if len(arr) == 1:
-            return max(0, arr[0]) % MOD
+            return arr[0] % MOD
         
-        max_pos = max_neg = 0
-        min_pos = min_neg = float('inf')
+        max_product = 1
+        min_product = 1
+        result = float('-inf')
         
         for num in arr:
-            if num > 0:
-                max_pos = max(max_pos * num, num)
-                min_pos = min(min_pos * num, num)
-            elif num < 0:
-                temp = max_pos
-                max_pos = max(min_neg * num, num)
-                min_neg = min(temp * num, num)
-            else:  # num == 0
-                max_pos = min_neg = 0
-                min_pos = float('inf')
+            temp_max = max(num, max_product * num, min_product * num)
+            min_product = min(num, max_product * num, min_product * num)
+            max_product = temp_max
             
-            max_pos %= MOD
-            min_neg %= MOD
+            result = max(result, max_product)
         
-        return max(max_pos, 0) % MOD
+        return result % MOD
